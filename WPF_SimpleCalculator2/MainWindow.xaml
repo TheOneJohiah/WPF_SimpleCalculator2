@@ -5,8 +5,141 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_SimpleCalculator2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <ControlTemplate x:Key="RoundTextboxCornterTemplate" TargetType="{x:Type TextBoxBase}">
+            <Border Background="{TemplateBinding Background}"   
+         x:Name="Bd" BorderBrush="Black"  
+         BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                </Trigger>
+                <Trigger Property="Width" Value="Auto">
+                    <Setter Property="MinWidth" Value="100"/>
+                </Trigger>
+                <Trigger Property="Height" Value="Auto">
+                    <Setter Property="MinHeight" Value="20"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <Label
+            Content="Momentum Calculator"
+            FontSize="24"
+            FontFamily="Showcard Gothic"
+            FontStyle="Italic"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"/>
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="1">
+            <RadioButton 
+                x:Name="RadioButton_Pounds"
+                Content="Imperial"
+                Margin="5"
+                FontSize="16"
+                Checked="RadioButton_Units_Checked"/>
+            <RadioButton
+                x:Name="RadioButton_Kilograms"
+                Content="Si Units"
+                Margin="5"
+                FontSize="16"
+                Checked="RadioButton_Units_Checked"/>
+        </StackPanel>
+        <Grid
+            Grid.Row="1"
+            Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label
+                x:Name="Label_Mass"
+                Grid.Row="0"
+                Grid.Column="0"
+                Content=""
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                FontSize="16"
+                />
+            <Label
+                x:Name="Label_Velocity"
+                Grid.Row="1"
+                Grid.Column="0"
+                Content="Velocity"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                FontSize="16"
+                />
+            <Button
+                x:Name="Button_Calculate"
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="100"
+                Height="30"
+                Content="Calculate"
+                HorizontalAlignment="Right"
+                Margin="0,17,73,17"
+                Click="Button_Calculate_Click"/>
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                Content="Momentum (kg m/s)"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0,0,10,0"
+                FontSize="16"
+                />
+            <TextBox
+                x:Name="TextBox_Mass"
+                Grid.Row="0"
+                Grid.Column="1"
+                Width="100"
+                Height="25"
+                Padding="5,0,0,0"
+                HorizontalAlignment="Left"
+                Template="{StaticResource RoundTextboxCornterTemplate}"/>
+            <TextBox
+                x:Name="TextBox_Velocity"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="100"
+                Height="25"
+                Padding="5,0,0,0"
+                HorizontalAlignment="Left"
+                Template="{StaticResource RoundTextboxCornterTemplate}"/>
+            <TextBox
+                x:Name="TextBox_Momentum"
+                Grid.Row="3"
+                Grid.Column="1"
+                Width="100"
+                Height="25"
+                Padding="5,0,0,0"
+                HorizontalAlignment="Left"
+                IsReadOnly="True"
+                Template="{StaticResource RoundTextboxCornterTemplate}"/>
+        </Grid>
     </Grid>
 </Window>
