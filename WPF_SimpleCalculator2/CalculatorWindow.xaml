@@ -1,11 +1,11 @@
-﻿<Window x:Class="WPF_SimpleCalculator2.MainWindow"
+﻿<Window x:Class="WPF_SimpleCalculator2.CalculatorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPF_SimpleCalculator2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="CalculatorWindow" Height="380" Width="550" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="RoundTextboxCornterTemplate" TargetType="{x:Type TextBoxBase}">
             <Border Background="{TemplateBinding Background}"   
@@ -13,20 +13,23 @@
          BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
                 <ScrollViewer x:Name="PART_ContentHost"/>
             </Border>
-            <ControlTemplate.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" TargetName="Bd"/>
-                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
-                </Trigger>
-                <Trigger Property="Width" Value="Auto">
-                    <Setter Property="MinWidth" Value="100"/>
-                </Trigger>
-                <Trigger Property="Height" Value="Auto">
-                    <Setter Property="MinHeight" Value="20"/>
-                </Trigger>
-            </ControlTemplate.Triggers>
         </ControlTemplate>
+        <Style x:Key="BottomButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+        <Style x:Key="HeaderStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="FontFamily" Value="Showcard Gothic"/>
+        </Style>
+        <Style x:Key="SubHeaderStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Times New Roman"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+        </Style>
     </Window.Resources>
+    
 
     <Grid>
         <Grid.RowDefinitions>
@@ -39,9 +42,7 @@
         </Grid.ColumnDefinitions>
         <Label
             Content="Momentum Calculator"
-            FontSize="24"
-            FontFamily="Showcard Gothic"
-            FontStyle="Italic"
+            Style="{StaticResource HeaderStyle}"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"/>
         <StackPanel
@@ -51,13 +52,15 @@
                 x:Name="RadioButton_Pounds"
                 Content="Imperial"
                 Margin="5"
-                FontSize="16"
+                FontSize="14"
+                FontFamily="Showcard Gothic"
                 Checked="RadioButton_Units_Checked"/>
             <RadioButton
                 x:Name="RadioButton_Kilograms"
                 Content="Si Units"
                 Margin="5"
-                FontSize="16"
+                FontSize="14"
+                FontFamily="Showcard Gothic"
                 Checked="RadioButton_Units_Checked"/>
         </StackPanel>
         <Grid
@@ -80,8 +83,7 @@
                 Content=""
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Margin="0,0,10,0"
-                FontSize="16"
+                Style="{StaticResource SubHeaderStyle}"
                 />
             <Label
                 x:Name="Label_Velocity"
@@ -90,8 +92,7 @@
                 Content="Velocity"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Margin="0,0,10,0"
-                FontSize="16"
+                Style="{StaticResource SubHeaderStyle}"
                 />
             <Button
                 x:Name="Button_Calculate"
@@ -101,6 +102,8 @@
                 Height="30"
                 Content="Calculate"
                 HorizontalAlignment="Right"
+                FontFamily="Times New Roman"
+                FontSize="16"
                 Margin="0,17,73,17"
                 Click="Button_Calculate_Click"/>
             <Label
@@ -109,14 +112,13 @@
                 Content="Momentum (kg m/s)"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Margin="0,0,10,0"
-                FontSize="16"
+                Style="{StaticResource SubHeaderStyle}"
                 />
             <TextBox
                 x:Name="TextBox_Mass"
                 Grid.Row="0"
                 Grid.Column="1"
-                Width="100"
+                Width="120"
                 Height="25"
                 Padding="5,0,0,0"
                 HorizontalAlignment="Left"
@@ -125,7 +127,7 @@
                 x:Name="TextBox_Velocity"
                 Grid.Row="1"
                 Grid.Column="1"
-                Width="100"
+                Width="120"
                 Height="25"
                 Padding="5,0,0,0"
                 HorizontalAlignment="Left"
@@ -134,12 +136,60 @@
                 x:Name="TextBox_Momentum"
                 Grid.Row="3"
                 Grid.Column="1"
-                Width="100"
+                Width="120"
                 Height="25"
                 Padding="5,0,0,0"
                 HorizontalAlignment="Left"
                 IsReadOnly="True"
                 Template="{StaticResource RoundTextboxCornterTemplate}"/>
+        </Grid>
+        <Grid
+            Grid.Row="2"
+            Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Image
+                Source="Old screensaver.png"/>
+            <Button
+                x:Name="Button_Help"
+                Grid.Row="1"
+                Grid.Column="1"
+                Width="110"
+                Height="30"
+                Content="Help"
+                FontSize="16"
+                FontFamily="Times New Roman"
+                HorizontalAlignment="Center"
+                Click="Button_Help_Click"/>
+            <Button
+                x:Name="Button_Exit"
+                Grid.Row="3"
+                Grid.Column="1"
+                Width="110"
+                Height="30"
+                Content="Exit"
+                FontSize="16"
+                FontFamily="Times New Roman"
+                HorizontalAlignment="Center"
+                Click="Button_Exit_Click"/>
+            <Button
+                x:Name="Button_Clear"
+                Grid.Row="2"
+                Grid.Column="1"
+                Width="110"
+                Height="30"
+                Content="Clear"
+                FontSize="16"
+                FontFamily="Times New Roman"
+                HorizontalAlignment="Center"
+                Click="Button_Clear_Click"/>
         </Grid>
     </Grid>
 </Window>
